@@ -64,6 +64,43 @@
         });
       }
 
+      let planningBoundaries = [];
+
+      // Load planning boundaries from the JSON file
+      async function loadPlanningBoundaries() {
+        try {
+          const response = await fetch("./singapore_planning_boundaries.json");
+          if (!response.ok)
+            throw new Error(
+              "Failed to load singapore_planning_boundaries.json"
+            );
+
+          const data = await response.json();
+          planningBoundaries = data.features.map(
+            (feature) => feature.geometry.rings
+          );
+          console.log("Planning boundaries loaded:", planningBoundaries.length);
+        } catch (error) {
+          console.error("Error loading planning boundaries:", error);
+        }
+      }
+
+      function addBoundaryPolygons(map) {
+        planningBoundaries.forEach((boundary) => {
+          boundary.forEach((ring) => {
+            const polygon = new google.maps.Polygon({
+              paths: ring.map((coords) => ({ lat: coords[1], lng: coords[0] })),
+              strokeColor: "#FF0000",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "#FF0000",
+              fillOpacity: 0.1,
+              map: map,
+            });
+          });
+        });
+      }
+
       // Initialize the Google Map
       function initMap() {
         const map = new google.maps.Map(document.getElementById("map"), {
@@ -230,19 +267,129 @@
         // });
 
         // addSchoolMarkers(map);
+        addBoundaryPolygons(map);
+
+        // libraries
+        const libraries = [
+          { lat: 1.391739735375255, lng: 103.89471395892345 },
+          { lat: 1.3725005889204267, lng: 103.89389143855985 },
+          { lat: 1.37483175928159, lng: 103.84550367053374 },
+          { lat: 1.4086655186016566, lng: 103.90499797053374 },
+          { lat: 1.3507601889022975, lng: 103.87235467053374 },
+          { lat: 1.3498450889015188, lng: 103.84878347053376 },
+          { lat: 1.3723287889202895, lng: 103.94984949998154 },
+          { lat: 1.2975870592394427, lng: 103.854309441086 },
+          { lat: 1.3196882592512305, lng: 103.89249219998153 },
+          { lat: 1.3268222000000311, lng: 103.93169069998153 },
+          { lat: 1.3522188296344924, lng: 103.94116299998154 },
+          { lat: 1.3174544888750865, lng: 103.88573807053376 },
+          { lat: 1.3048056592432633, lng: 103.90947699998155 },
+          { lat: 1.3799620296422537, lng: 103.76433909998156 },
+          { lat: 1.2636837000000167, lng: 103.82339917053375 },
+          { lat: 1.4349039593160893, lng: 103.78678067053376 },
+          { lat: 1.3329159592584148, lng: 103.7395021116382 },
+          { lat: 1.3849756592873261, lng: 103.7452225116382 },
+          { lat: 1.3147151592485662, lng: 103.76407107053373 },
+          { lat: 1.3500090889016712, lng: 103.74928721163818 },
+          { lat: 1.33291797037081, lng: 103.73950134108597 },
+          { lat: 1.4294908889693654, lng: 103.836402041086 },
+          { lat: 1.4482818296619713, lng: 103.81955844108599 },
+          { lat: 1.3335418296293817, lng: 103.850508141086 },
+          { lat: 1.300530399999996, lng: 103.83965634108597 },
+          { lat: 1.3403465888936934, lng: 103.70452594108599 },
+          { lat: 1.2986073587193776, lng: 103.80516553617625 },
+          { lat: 1.3027648592421734, lng: 103.76503387053376 },
+        ];
+        libraries.forEach((library) => {
+          // new google.maps.Circle({
+          //   map: map,
+          //   center: library,
+          //   radius: 400, // Radius in meters
+          //   fillColor: "#FF0000", // Fill color for the circle
+          //   fillOpacity: 0.3, // Opacity of the fill
+          //   strokeColor: "#FF0000", // Border color of the circle
+          //   strokeOpacity: 0.8, // Opacity of the border
+          //   strokeWeight: 2, // Border thickness
+          // });
+          // marker
+          new google.maps.Marker({
+            position: library,
+            map: map,
+            title: "Library",
+          });
+        });
+
+        // 16 and above
+        const schools = [
+          // ITE
+          { lat: 1.3777795539763937, lng: 103.85634236965356 },
+          { lat: 1.3345471962978388, lng: 103.95464380597758 },
+          { lat: 1.37582962964114, lng: 103.75242056996198 },
+          // JC
+          { lat: 1.3304719763629216, lng: 103.8045021606347 },
+          { lat: 1.3031327184847588, lng: 103.78511399327138 },
+          { lat: 1.324990700000003, lng: 103.83547156434392 },
+          { lat: 1.3060618554636323, lng: 103.91987726434392 },
+          { lat: 1.3332496370343565, lng: 103.86318189992623 },
+          { lat: 1.3626111370990415, lng: 103.83945806434392 },
+          { lat: 1.350317037071781, lng: 103.86644034655278 },
+          { lat: 1.3847392371486977, lng: 103.75385968213509 },
+          { lat: 1.3259000370175757, lng: 103.80571768213504 },
+          { lat: 1.3766484371304544, lng: 103.93726828213507 },
+          { lat: 1.3572863556308192, lng: 103.95619354655274 },
+          { lat: 1.365089818552298, lng: 103.88782384655278 },
+          { lat: 1.42521285586243, lng: 103.83111086434391 },
+          { lat: 1.3465990555953884, lng: 103.84310304655276 },
+          { lat: 1.3508203370728984, lng: 103.74138998213506 },
+          { lat: 1.3350699348727897, lng: 103.84083795202737 },
+          // Polytechnic
+          { lat: 1.3097768275726054, lng: 103.77754897653071 },
+          { lat: 1.379942356523084, lng: 103.84894995566457 },
+          { lat: 1.333083618517007, lng: 103.77594196434393 },
+          { lat: 1.3453096370607702, lng: 103.93182199992623 },
+          { lat: 1.4428283186414521, lng: 103.78557164655275 },
+          // University
+          { lat: 1.2966370042221664, lng: 103.77639986212617 },
+          { lat: 1.2962758450359237, lng: 103.85015781897238 },
+          { lat: 1.3482884469082281, lng: 103.68313469628954 },
+          { lat: 1.341295744269603, lng: 103.96379415368057 },
+          { lat: 1.3004194386019112, lng: 103.78047863334514 },
+          { lat: 1.3294045141590842, lng: 103.77620710213904 },
+          { lat: 1.3158700055766315, lng: 103.87581928534543 },
+          { lat: 1.3290595467593724, lng: 103.77620742512491 },
+        ];
+
+        schools.forEach((school) => {
+          new google.maps.Marker({
+            position: school,
+            map: map,
+            title: "School",
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6, // Size of the marker
+              fillColor: "#FFA500", // Change this color to any desired color (e.g., "#FF0000" for red)
+              fillOpacity: 1,
+              strokeColor: "#FFA500", // Border color
+              strokeWeight: 2,
+            },
+          });
+        });
       }
+
       // Load bounding boxes and initialize the map
-      Promise.all([loadBoundingBoxes(), loadInternationalSchools()]).then(
-        () => {
-          if (boundingBoxes.length > 0) {
-            initMap();
-          } else {
-            console.error(
-              "No bounding boxes loaded, map initialization skipped."
-            );
-          }
+      Promise.all([
+        loadBoundingBoxes(),
+        loadPlanningBoundaries(),
+        loadInternationalSchools(),
+      ]).then(() => {
+        if (boundingBoxes.length > 0) {
+          initMap();
+        } else {
+          console.error(
+            "No bounding boxes loaded, map initialization skipped."
+          );
         }
-      );
+      });
     </script>
   </body>
 </html>
