@@ -96,6 +96,7 @@
               fillColor: "#FF0000",
               fillOpacity: 0.1,
               map: map,
+              clickable: false,
             });
           });
         });
@@ -175,6 +176,9 @@
               remainingRectangle.getBounds().getCenter().lat(),
               remainingRectangle.getBounds().getCenter().lng()
             );
+            const center = remainingRectangle.getBounds().getCenter();
+            const googleMapsLink = `https://www.google.com/maps/@${center.lat()},${center.lng()},15z`;
+            window.open(googleMapsLink, "_blank");
           });
         });
 
