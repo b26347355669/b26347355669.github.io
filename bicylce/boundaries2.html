@@ -34,6 +34,36 @@
         }
       }
 
+      let internationalSchools = [];
+
+      // Load international schools from the JSON file
+      async function loadInternationalSchools() {
+        console.log("hello");
+        try {
+          const response = await fetch("./international_schools.json");
+          if (!response.ok)
+            throw new Error("Failed to load international_schools.json");
+
+          internationalSchools = await response.json();
+          console.log(
+            "International schools loaded:",
+            internationalSchools.length
+          );
+        } catch (error) {
+          console.error("Error loading international schools:", error);
+        }
+      }
+
+      function addSchoolMarkers(map) {
+        internationalSchools.forEach((school) => {
+          new google.maps.Marker({
+            position: { lat: school.lat, lng: school.lng },
+            map: map,
+            title: school.name,
+          });
+        });
+      }
+
       // Initialize the Google Map
       function initMap() {
         const map = new google.maps.Map(document.getElementById("map"), {
@@ -103,20 +133,116 @@
             console.log(
               `Geohash of ${suffix === "0" ? "left" : "right"} box: ${geohash}`
             );
+            console.log(
+              "Center:",
+              remainingRectangle.getBounds().getCenter().lat(),
+              remainingRectangle.getBounds().getCenter().lng()
+            );
           });
         });
-      }
 
+        // const perfectShops = [
+        //   { lat: 1.3486189289990935, lng: 103.69791626784637 },
+        //   { lat: 1.3305824592571522, lng: 103.6914617999904 },
+        //   { lat: 1.3429222296319336, lng: 103.70282157054265 },
+        //   { lat: 1.3477518000000008, lng: 103.74273334109489 },
+        //   { lat: 1.3337884592588876, lng: 103.6927382410949 },
+        //   { lat: 1.3330784592584974, lng: 103.69749939999045 },
+        //   { lat: 1.4064476592995572, lng: 103.75766577054266 },
+        //   { lat: 1.3458790444070268, lng: 103.75089874109491 },
+        //   { lat: 1.3301069888853194, lng: 103.74475667054266 },
+        //   { lat: 1.3899553592901284, lng: 103.76729447054265 },
+        //   { lat: 1.4060205592993085, lng: 103.75836327054269 },
+        //   { lat: 1.3853768407124833, lng: 103.76629925888598 },
+        //   { lat: 1.3098859490353918, lng: 103.73580777403923 },
+        //   { lat: 1.3612583185480132, lng: 103.75117294109491 },
+        //   { lat: 1.3041153296214607, lng: 103.76543199999043 },
+        //   { lat: 1.313648659247988, lng: 103.62758901164712 },
+        //   { lat: 1.3386653888923308, lng: 103.75924007054266 },
+        //   { lat: 1.3157669777473886, lng: 103.63430434109488 },
+        //   { lat: 1.4795245593426363, lng: 103.65032267054265 },
+        //   { lat: 1.4643579890002592, lng: 103.75400067054267 },
+        //   { lat: 1.3076045296223897, lng: 103.79345662943821 },
+        //   { lat: 1.3030399481058212, lng: 103.85291945888595 },
+        //   { lat: 1.323918029626781, lng: 103.80999061164714 },
+        //   { lat: 1.4487753593242363, lng: 103.81000917054268 },
+        //   { lat: 1.4370057296586718, lng: 103.8372725999904 },
+        //   { lat: 1.2913416184722604, lng: 103.62435485888597 },
+        //   { lat: 1.4506183889879949, lng: 103.81094084109492 },
+        //   { lat: 1.2921859592365748, lng: 103.84266758833373 },
+        //   { lat: 1.4348982482901576, lng: 103.78465397054266 },
+        //   { lat: 1.4447308000000085, lng: 103.81674227054268 },
+        //   { lat: 1.3176334211519127, lng: 103.83294871343043 },
+        //   { lat: 1.304574136972562, lng: 103.83407095308641 },
+        //   { lat: 1.3640368113066603, lng: 103.8491325931771 },
+        //   { lat: 1.3037469781754434, lng: 103.83326956434139 },
+        //   { lat: 1.3058331956708475, lng: 103.83280285998778 },
+        //   { lat: 1.3489461629312647, lng: 103.84867744225211 },
+        //   { lat: 1.3176286110016446, lng: 103.83294429992351 },
+        //   { lat: 1.285544436932297, lng: 103.80269723550565 },
+        //   { lat: 1.3532147370781828, lng: 103.83477729992349 },
+        //   { lat: 1.300158636963169, lng: 103.85774355759494 },
+        //   { lat: 1.2855988738648485, lng: 103.80287059317709 },
+        //   { lat: 1.3015411000000052, lng: 103.85345128643065 },
+        //   { lat: 1.2835396477124374, lng: 103.85229139992352 },
+        //   { lat: 1.303706426643313, lng: 103.8332709041512 },
+        //   { lat: 1.3071164314110637, lng: 103.85051336519341 },
+        //   { lat: 1.309916156461338, lng: 103.8550055631161 },
+
+        //   // east
+        //   { lat: 1.3689663285987772, lng: 103.95822219159975 },
+        //   { lat: 1.348412481892161, lng: 103.94809336165547 },
+        //   { lat: 1.348834591349782, lng: 103.95444594992554 },
+        //   { lat: 1.3485363895247506, lng: 103.93901215103396 },
+        //   { lat: 1.3406175185082885, lng: 103.94185023757205 },
+        //   { lat: 1.33942284177177, lng: 103.94145768291722 },
+        //   { lat: 1.3357646560839536, lng: 103.94915028337742 },
+        //   { lat: 1.3258614496385026, lng: 103.9293197280216 },
+        //   { lat: 1.3157805853720816, lng: 103.94144077086564 },
+        //   { lat: 1.3128706375310104, lng: 103.92534868281672 },
+        //   { lat: 1.368841461041936, lng: 103.95824340334461 },
+        //   { lat: 1.378602050248308, lng: 103.94205952512368 },
+
+        //   // north
+        //   { lat: 1.3942064853330955, lng: 103.91296733043139 },
+        //   { lat: 1.386168528698239, lng: 103.89650472136148 },
+        //   { lat: 1.3924098185159115, lng: 103.8770217077572 },
+        //   { lat: 1.3778856968888418, lng: 103.8705078904965 },
+        //   { lat: 1.3539751185047424, lng: 103.87864871430135 },
+        //   { lat: 1.35214906331168, lng: 103.89145549031308 },
+        //   { lat: 1.351060074587873, lng: 103.85842742114723 },
+        //   { lat: 1.3489095749826387, lng: 103.8486953069681 },
+        //   { lat: 1.333389022300342, lng: 103.89427907667844 },
+        //   { lat: 1.3330427045894482, lng: 103.90181352645412 },
+        // ];
+
+        // perfectShops.forEach((shop) => {
+        //   new google.maps.Circle({
+        //     map: map,
+        //     center: shop,
+        //     radius: 400, // Radius in meters
+        //     fillColor: "#FF0000", // Fill color for the circle
+        //     fillOpacity: 0.3, // Opacity of the fill
+        //     strokeColor: "#FF0000", // Border color of the circle
+        //     strokeOpacity: 0.8, // Opacity of the border
+        //     strokeWeight: 2, // Border thickness
+        //   });
+        // });
+
+        // addSchoolMarkers(map);
+      }
       // Load bounding boxes and initialize the map
-      loadBoundingBoxes().then(() => {
-        if (boundingBoxes.length > 0) {
-          initMap();
-        } else {
-          console.error(
-            "No bounding boxes loaded, map initialization skipped."
-          );
+      Promise.all([loadBoundingBoxes(), loadInternationalSchools()]).then(
+        () => {
+          if (boundingBoxes.length > 0) {
+            initMap();
+          } else {
+            console.error(
+              "No bounding boxes loaded, map initialization skipped."
+            );
+          }
         }
-      });
+      );
     </script>
   </body>
 </html>
