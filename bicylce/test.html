@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Maps Radius Circle</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLQ7zerFAyUEa0YzusDYSbGcTfVOMi_O8"></script>
+    <script>
+      function initMap() {
+        // Initialize the map centered around the average location of the points
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 1.332, lng: 103.694 }, // Center the map on a midpoint
+          zoom: 15, // Adjust zoom level to fit all circles well
+        });
+
+        // Boundaries of the map
+        const shapeCoords = [];
+
+        const polygon = new google.maps.Polygon({
+          paths: shapeCoords,
+          editable: false,
+          draggable: false,
+          map: map,
+          strokeColor: "#FFFF00",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FFFF00",
+          fillOpacity: 0.35,
+        });
+
+        // const lampPosts = [
+        //   { lat: 1.3374369097427394, lng: 103.69642303760904 },
+        //   { lat: 1.3374433268612758, lng: 103.69671198219466 },
+        //   { lat: 1.3374674215242197, lng: 103.69745122848035 },
+        //   { lat: 1.3374604155916305, lng: 103.69770709169298 },
+        //   { lat: 1.3374601666101131, lng: 103.69822979622477 },
+        // ];
+
+        // lampPosts.forEach((lampPost) => {
+        //   new google.maps.Circle({
+        //     map: map,
+        //     center: lampPost,
+        //     radius: 35, // Radius in meters
+        //     fillColor: "#FF0000", // Fill color for the circle
+        //     fillOpacity: 0.3, // Opacity of the fill
+        //     strokeColor: "#FF0000", // Border color of the circle
+        //     strokeOpacity: 0.8, // Opacity of the border
+        //     strokeWeight: 2, // Border thickness
+        //   });
+        // });
+
+        // publicToilets = [
+        //   // Pioneer
+        //   { lat: 1.3418341518418235, lng: 103.69725981357057 },
+        //   { lat: 1.3421055552719443, lng: 103.69277371296397 },
+        //   // Tampines
+        //   { lat: 1.3385854403295352, lng: 103.9336016507799 },
+        //   { lat: 1.34187564769387, lng: 103.93228865706455 },
+        //   { lat: 1.3761144561329968, lng: 103.95192250462172 },
+        //   { lat: 1.3723501140064949, lng: 103.95137711103708 },
+        // ];
+
+        // publicToilets.forEach((publicToilet) => {
+        //   new google.maps.Circle({
+        //     map: map,
+        //     center: publicToilet,
+        //     radius: 700, // Radius in meters
+        //     fillColor: "#FF0000", // Fill color for the circle
+        //     fillOpacity: 0.3, // Opacity of the fill
+        //     strokeColor: "#FF0000", // Border color of the circle
+        //     strokeOpacity: 0.8, // Opacity of the border
+        //     strokeWeight: 2, // Border thickness
+        //   });
+        // });
+
+        // // Coordinates array with a 400-meter radius for each point
+        // // const locations = [
+        // //   { lat: 1.333081181914243, lng: 103.69750138534987 },
+        // //   { lat: 1.3305891629714381, lng: 103.69145744140626 },
+        // //   { lat: 1.3337938222233625, lng: 103.69274058803319 },
+        // //   { lat: 1.3429115178931306, lng: 103.70281682208993 },
+        // // ];
+
+        // // Loop through the locations and create a circle for each
+        // // locations.forEach((location) => {
+        // //   new google.maps.Circle({
+        // //     map: map,
+        // //     center: location,
+        // //     radius: 400, // Radius in meters
+        // //     fillColor: "#FF0000", // Fill color for the circle
+        // //     fillOpacity: 0.3, // Opacity of the fill
+        // //     strokeColor: "#FF0000", // Border color of the circle
+        // //     strokeOpacity: 0.8, // Opacity of the border
+        // //     strokeWeight: 2, // Border thickness
+        // //   });
+        // // });
+
+        // const swimmingPool = {
+        //   lat: 1.3379987774212028,
+        //   lng: 103.69337047962468,
+        // };
+        // // const swimmingPool = {
+        // //   lat: 1.3355481751467952,
+        // //   lng: 103.70606997054215,
+        // // };
+        // new google.maps.Circle({
+        //   map: map,
+        //   center: swimmingPool,
+        //   radius: 600, // Radius in meters
+        //   fillColor: "#fbfbfb", // Fill color for the circle
+        //   fillOpacity: 0.3, // Opacity of the fill
+        //   strokeColor: "#fbfbfb", // Border color of the circle
+        //   strokeOpacity: 0.8, // Opacity of the border
+        //   strokeWeight: 2, // Border thickness
+        // });
+
+        // const laundromat = {
+        //   lat: 1.335907815344599,
+        //   lng: 103.6959803226178,
+        // };
+
+        // new google.maps.Circle({
+        //   map: map,
+        //   center: laundromat,
+        //   radius: 320, // Radius in meters
+        //   fillColor: "#00FFFF", // Fill color for the circle
+        //   fillOpacity: 0.3, // Opacity of the fill
+        //   strokeColor: "#fbfbfb", // Border color of the circle
+        //   strokeOpacity: 0.8, // Opacity of the border
+        //   strokeWeight: 2, // Border thickness
+        // });
+
+        // // const mrt = {
+        // //   lat: 1.3376129504687078,
+        // //   lng: 103.69738725440115,
+        // // };
+
+        // // new google.maps.Circle({
+        // //   map: map,
+        // //   center: mrt,
+        // //   radius: 300, // Radius in meters
+        // //   fillColor: "#00ff00", // Fill color for the circle
+        // //   fillOpacity: 0.3, // Opacity of the fill
+        // //   strokeColor: "#00ff00", // Border color of the circle
+        // //   strokeOpacity: 0.8, // Opacity of the border
+        // //   strokeWeight: 2, // Border thickness
+        // // });
+
+        // // const foodCourt = {
+        // //   lat: 1.3375037474024298,
+        // //   lng: 103.69710835142484,
+        // // };
+
+        // // new google.maps.Circle({
+        // //   map: map,
+        // //   center: foodCourt,
+        // //   radius: 300, // Radius in meters
+        // //   fillColor: "#FFA500", // Fill color for the circle
+        // //   fillOpacity: 0.3, // Opacity of the fill
+        // //   strokeColor: "#FFA500", // Border color of the circle
+        // //   strokeOpacity: 0.8, // Opacity of the border
+        // //   strokeWeight: 2, // Border thickness
+        // // });
+
+        // // const alteration = {
+        // //   lat: 1.338272142379927,
+        // //   lng: 103.69740874764175,
+        // // };
+
+        // // new google.maps.Circle({
+        // //   map: map,
+        // //   center: alteration,
+        // //   radius: 1200, // Radius in meters
+        // //   fillColor: "#A020F0", // Fill color for the circle
+        // //   fillOpacity: 0.3, // Opacity of the fill
+        // //   strokeColor: "#A020F0", // Border color of the circle
+        // //   strokeOpacity: 0.8, // Opacity of the border
+        // //   strokeWeight: 2, // Border thickness
+        // // });
+
+        // // const jolibee = {
+        // //   lat: 1.339965361906457,
+        // //   lng: 103.70632252180768,
+        // // };
+
+        // // new google.maps.Circle({
+        // //   map: map,
+        // //   center: jolibee,
+        // //   radius: 888, // Radius in meters
+        // //   fillColor: "#FFA500", // Fill color for the circle
+        // //   fillOpacity: 0.3, // Opacity of the fill
+        // //   strokeColor: "#FFA500", // Border color of the circle
+        // //   strokeOpacity: 0.8, // Opacity of the border
+        // //   strokeWeight: 2, // Border thickness
+        // // });
+
+        // // const pasta = {
+        // //   lat: 1.3370286789903574,
+        // //   lng: 103.69425070313918,
+        // // };
+
+        // // new google.maps.Circle({
+        // //   map: map,
+        // //   center: pasta,
+        // //   radius: 411, // Radius in meters
+        // //   fillColor: "#FFA500", // Fill color for the circle
+        // //   fillOpacity: 0.3, // Opacity of the fill
+        // //   strokeColor: "#FFA500", // Border color of the circle
+        // //   strokeOpacity: 0.8, // Opacity of the border
+        // //   strokeWeight: 2, // Border thickness
+        // // });
+
+        // // const toilet = {
+        // //   lat: 1.341994899849797,
+        // //   lng: 103.69723318259632,
+        // // };
+        // // const toilet = {
+        // //   lat: 1.3422542316304718,
+        // //   lng: 103.6928398160014,
+        // // };
+        // // new google.maps.Circle({
+        // //   map: map,
+        // //   center: toilet,
+        // //   radius: 700, // Radius in meters
+        // //   fillColor: "#A020F0", // Fill color for the circle
+        // //   fillOpacity: 0.3, // Opacity of the fill
+        // //   strokeColor: "#A020F0", // Border color of the circle
+        // //   strokeOpacity: 0.8, // Opacity of the border
+        // //   strokeWeight: 2, // Border thickness
+        // // });
+      }
+    </script>
+  </head>
+  <body onload="initMap()">
+    <h3>400 Meter Radius Around Coordinates</h3>
+    <div id="map" style="width: 100%; height: 100vh"></div>
+  </body>
+</html>

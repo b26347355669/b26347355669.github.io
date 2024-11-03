@@ -1,0 +1,188 @@
+[
+    {
+        "name": "National Library / Lee Kong Chian Reference Library",
+        "address": "100 Victoria Street, Singapore 188064",
+        "latitude": 1.2974415,
+        "longitude": 103.8541438
+    },
+    {
+        "name": "National Archives of Singapore",
+        "address": "1 Canning Rise, Singapore 179868",
+        "latitude": 1.2931305,
+        "longitude": 103.8483091
+    },
+    {
+        "name": "The LLiBrary",
+        "address": "11 Eunos Road 8, #03-02 (Via Lobby B), Singapore 408601",
+        "latitude": 1.3196896,
+        "longitude": 103.8924922
+    },
+    {
+        "name": "Singapore Botanic Gardens\u2019 Library",
+        "address": "1 Cluny Rd, Level 1, Botany Centre, Tanglin Entrance, Singapore Botanic Gardens, Singapore 259569",
+        "latitude": 1.3123445,
+        "longitude": 103.8136968
+    },
+    {
+        "name": "Ang Mo Kio Public Library",
+        "address": "4300 Ang Mo Kio Avenue 6, Singapore 569842",
+        "latitude": 1.3762884,
+        "longitude": 103.8448366
+    },
+    {
+        "name": "Bedok Public Library",
+        "address": "11 Bedok North Street 1, #02-03 & #03-04, Singapore 469662",
+        "latitude": 1.3269753,
+        "longitude": 103.9321493
+    },
+    {
+        "name": "Bishan Public Library",
+        "address": "5 Bishan Place, #01-01, Singapore 579841",
+        "latitude": 1.3498539,
+        "longitude": 103.8488337
+    },
+    {
+        "name": "Bukit Batok Public Library",
+        "address": "1 Bukit Batok Central Link, #03-01, Singapore 658713",
+        "latitude": 1.3500111,
+        "longitude": 103.7492852
+    },
+    {
+        "name": "Bukit Panjang Public Library",
+        "address": "1 Jelebu Road, #04-04 & 16/17, Singapore 677743",
+        "latitude": 1.3799653,
+        "longitude": 103.7643089
+    },
+    {
+        "name": "Central Public Library",
+        "address": "100 Victoria Street, Singapore 188064",
+        "latitude": 1.2974415,
+        "longitude": 103.8541438
+    },
+    {
+        "name": "Cheng San Public Library",
+        "address": "90 Hougang Avenue 10, #03-11, Singapore 538766",
+        "latitude": 1.372454,
+        "longitude": 103.894009
+    },
+    {
+        "name": "Choa Chu Kang Public Library",
+        "address": "21 Choa Chu Kang Ave 4, #04-01/02 and #05-06, Singapore 689812",
+        "latitude": 1.3850239,
+        "longitude": 103.7451634
+    },
+    {
+        "name": "Clementi Public Library",
+        "address": "3155 Commonwealth Avenue West, #05-13/14/15, Singapore 129588",
+        "latitude": 1.3125415,
+        "longitude": 103.7747404
+    },
+    {
+        "name": "Geylang East Public Library",
+        "address": "50 Geylang East Ave 1, Singapore 389777",
+        "latitude": 1.3173831,
+        "longitude": 103.8858563
+    },
+    {
+        "name": "Jurong Regional Library",
+        "address": "21 Jurong East Central 1, Singapore 609732",
+        "latitude": 1.3327483,
+        "longitude": 103.7395367
+    },
+    {
+        "name": "Jurong West Public Library",
+        "address": "60 Jurong West Central 3, #01-03, Singapore 648346",
+        "latitude": 1.3403486,
+        "longitude": 103.7045246
+    },
+    {
+        "name": "library@chinatown",
+        "address": "133 New Bridge Road, #04-12, Singapore 059413",
+        "latitude": 1.2852093,
+        "longitude": 103.8447228
+    },
+    {
+        "name": "library@esplanade",
+        "address": "8 Raffles Avenue, #03-01, Singapore 039802",
+        "latitude": 1.2898305,
+        "longitude": 103.8557693
+    },
+    {
+        "name": "library@harbourfront",
+        "address": "1 Harbourfront Walk, #03-05 (Lobby F), Singapore 098585",
+        "latitude": 1.2647139,
+        "longitude": 103.8231658
+    },
+    {
+        "name": "library@orchard",
+        "address": "277 Orchard Road, #03-12 / #04-11, Singapore 238858",
+        "latitude": 1.3002793,
+        "longitude": 103.8388322
+    },
+    {
+        "name": "Marine Parade Public Library",
+        "address": "278 Marine Parade Road, #01-02, Singapore 449282",
+        "latitude": 1.3048553,
+        "longitude": 103.909675
+    },
+    {
+        "name": "Pasir Ris Public Library",
+        "address": "1 Pasir Ris Central St 3, #04-01/06, Singapore 518457",
+        "latitude": 1.3724519,
+        "longitude": 103.949885
+    },
+    {
+        "name": "Punggol Regional Library",
+        "address": "1 Punggol Drive, #01-12, Singapore 828629",
+        "latitude": 1.4086682,
+        "longitude": 103.9049973
+    },
+    {
+        "name": "Queenstown Public Library",
+        "address": "53 Margaret Drive, Singapore 149297",
+        "latitude": 1.2985996,
+        "longitude": 103.8054633
+    },
+    {
+        "name": "Sembawang Public Library",
+        "address": "30 Sembawang Drive, #05-01, Singapore 757713",
+        "latitude": 1.4483275,
+        "longitude": 103.8195883
+    },
+    {
+        "name": "Sengkang Public Library",
+        "address": "1 Sengkang Square, #03-28 & #04-19, Singapore 545078",
+        "latitude": 1.3918437,
+        "longitude": 103.8946829
+    },
+    {
+        "name": "Serangoon Public Library",
+        "address": "23 Serangoon Central, #04-82/83, Singapore 556083",
+        "latitude": 1.3507622,
+        "longitude": 103.872354
+    },
+    {
+        "name": "Tampines Regional Library",
+        "address": "1 Tampines Walk, #02-01, Singapore 528523",
+        "latitude": 1.3522195,
+        "longitude": 103.941163
+    },
+    {
+        "name": "Toa Payoh Public Library",
+        "address": "6 Toa Payoh Central, Singapore 319191",
+        "latitude": 1.333542,
+        "longitude": 103.8504768
+    },
+    {
+        "name": "Woodlands Regional Library",
+        "address": "900 South Woodlands Drive, #01-03, Singapore 730900",
+        "latitude": 1.4350059,
+        "longitude": 103.7869203
+    },
+    {
+        "name": "Yishun Public Library",
+        "address": "930 Yishun Ave 2, #04-01, Singapore 769098",
+        "latitude": 1.42959,
+        "longitude": 103.8357694
+    }
+]

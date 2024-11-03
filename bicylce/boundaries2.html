@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Draw Two Squares in Each Rectangle</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLQ7zerFAyUEa0YzusDYSbGcTfVOMi_O8"></script>
+    <script src="./geohashes/ngeohash.js"></script>
+    <style>
+      html,
+      body,
+      #map {
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      let boundingBoxes = [];
+
+      // Load bounding boxes from the JSON file
+      async function loadBoundingBoxes() {
+        try {
+          const response = await fetch("./geohashes/filtered_geohashes2.json");
+          if (!response.ok)
+            throw new Error("Failed to load filtered_geohashes2.json");
+
+          boundingBoxes = await response.json();
+          console.log("Bounding boxes loaded:", boundingBoxes.length);
+        } catch (error) {
+          console.error("Error loading bounding boxes:", error);
+        }
+      }
+
+      // Initialize the Google Map
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 1.3521, lng: 103.8198 },
+          zoom: 12,
+        });
+
+        boundingBoxes.forEach((boxData) => {
+          const geohash = boxData.geohash;
+          const suffix = geohash.slice(-1); // Get the last character to determine left (0) or right (1)
+          const bounds = boxData.bounding_box;
+
+          // Calculate the midpoint for longitude to split the rectangle width-wise
+          const midLng = (bounds.east + bounds.west) / 2;
+
+          // Define bounds for the left and right halves
+          const leftSquareBounds = {
+            north: bounds.north,
+            south: bounds.south,
+            east: midLng,
+            west: bounds.west,
+          };
+          const rightSquareBounds = {
+            north: bounds.north,
+            south: bounds.south,
+            east: bounds.east,
+            west: midLng,
+          };
+
+          // Draw the left square
+          const leftRectangle = new google.maps.Rectangle({
+            bounds: leftSquareBounds,
+            map: map,
+            strokeColor: "#0000FF", // Red for left
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#0000FF",
+            fillOpacity: 0.3,
+            clickable: true,
+          });
+
+          // Draw the right square
+          const rightRectangle = new google.maps.Rectangle({
+            bounds: rightSquareBounds,
+            map: map,
+            strokeColor: "#0000FF", // Blue for right
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#0000FF",
+            fillOpacity: 0.3,
+            clickable: true,
+          });
+
+          // Remove the appropriate rectangle based on the suffix
+          if (suffix === "0") {
+            // Suffix 0 -> keep left, remove right
+            rightRectangle.setMap(null);
+          } else {
+            // Suffix 1 -> keep right, remove left
+            leftRectangle.setMap(null);
+          }
+
+          // Optional: Add click event listener to log geohash of the remaining square
+          const remainingRectangle =
+            suffix === "0" ? leftRectangle : rightRectangle;
+          remainingRectangle.addListener("click", () => {
+            console.log(
+              `Geohash of ${suffix === "0" ? "left" : "right"} box: ${geohash}`
+            );
+          });
+        });
+      }
+
+      // Load bounding boxes and initialize the map
+      loadBoundingBoxes().then(() => {
+        if (boundingBoxes.length > 0) {
+          initMap();
+        } else {
+          console.error(
+            "No bounding boxes loaded, map initialization skipped."
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

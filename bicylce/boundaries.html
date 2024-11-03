@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Draw Two Squares in Each Rectangle</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLQ7zerFAyUEa0YzusDYSbGcTfVOMi_O8"></script>
+    <script src="./geohashes/ngeohash.js"></script>
+    <style>
+      #map {
+        height: 600px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      let boundingBoxes = [];
+
+      // Load bounding boxes from the JSON file
+      async function loadBoundingBoxes() {
+        try {
+          const response = await fetch("./geohashes/filtered_geohashes2.json");
+          if (!response.ok)
+            throw new Error("Failed to load filtered_geohashes2.json");
+
+          boundingBoxes = await response.json();
+          console.log("Bounding boxes loaded:", boundingBoxes.length);
+        } catch (error) {
+          console.error("Error loading bounding boxes:", error);
+        }
+      }
+
+      // Initialize the Google Map
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 1.3521, lng: 103.8198 },
+          zoom: 12,
+        });
+
+        // Draw rectangles and inner squares for each bounding box
+        boundingBoxes.forEach((geohashData) => {
+          const bounds = geohashData.bounding_box;
+          const midLng = (bounds.east + bounds.west) / 2;
+
+          // Define the bounds of the left and right halves
+          const leftSquareBounds = {
+            north: bounds.north,
+            south: bounds.south,
+            east: midLng,
+            west: bounds.west,
+          };
+          const rightSquareBounds = {
+            north: bounds.north,
+            south: bounds.south,
+            east: bounds.east,
+            west: midLng,
+          };
+
+          // Draw the left square
+          const leftRectangle = new google.maps.Rectangle({
+            bounds: leftSquareBounds,
+            map: map,
+            strokeColor: "#0000FF",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#0000FF",
+            fillOpacity: 0.3,
+            clickable: true,
+          });
+
+          // Click event for left rectangle to change color and log its geohash
+          leftRectangle.addListener("click", () => {
+            leftRectangle.setOptions({ fillColor: "#FFFF00" }); // Change to yellow
+            const centerLat =
+              (leftSquareBounds.north + leftSquareBounds.south) / 2;
+            const centerLng =
+              (leftSquareBounds.east + leftSquareBounds.west) / 2;
+            const halfGeohash = ngeohash.encode(centerLat, centerLng, 9);
+            console.log("Left half geohash:", halfGeohash);
+          });
+
+          // Draw the right square
+          const rightRectangle = new google.maps.Rectangle({
+            bounds: rightSquareBounds,
+            map: map,
+            strokeColor: "#0000FF",
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: "#0000FF",
+            fillOpacity: 0.3,
+            clickable: true,
+          });
+
+          // Click event for right rectangle to change color and log its geohash
+          rightRectangle.addListener("click", () => {
+            rightRectangle.setOptions({ fillColor: "#FFFF00" }); // Change to yellow
+            const centerLat =
+              (rightSquareBounds.north + rightSquareBounds.south) / 2;
+            const centerLng =
+              (rightSquareBounds.east + rightSquareBounds.west) / 2;
+            const halfGeohash = ngeohash.encode(centerLat, centerLng, 9);
+            console.log("Right half geohash:", halfGeohash);
+          });
+        });
+      }
+
+      // Load bounding boxes and initialize the map
+      loadBoundingBoxes().then(() => {
+        if (boundingBoxes.length > 0) {
+          initMap();
+        } else {
+          console.error(
+            "No bounding boxes loaded, map initialization skipped."
+          );
+        }
+      });
+    </script>
+  </body>
+</html>
